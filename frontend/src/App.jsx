@@ -1,4 +1,13 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
+ import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import "./App.css";
 
 function App() {
@@ -9,7 +18,10 @@ function App() {
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/dashboard/city")
       .then((res) => res.json())
-      .then((data) => setCityData(data));
+      .then((data) => {
+  console.log("CITY DATA:", data);
+  setCityData(data);
+});
 
     fetch("http://127.0.0.1:8000/api/dashboard/category")
       .then((res) => res.json())
@@ -29,7 +41,7 @@ function App() {
     <div className="app">
       <header className="navbar">
         <h2>Business Listening Dashboard</h2>
-        <p classname="author">created by sandeep rana</p>
+        <p className="author">created by sandeep rana</p>
 
         <nav>
           <a href="#dashboard">Dashboard</a>
@@ -73,6 +85,46 @@ function App() {
             <span>Listing sources</span>
           </div>
         </section>
+        <section className="chart-section">
+  <h2>City Wise Chart</h2>
+  
+
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={cityData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="city" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="count" />
+    </BarChart>
+  </ResponsiveContainer>
+</section>
+<section className="chart-section">
+  <h2>Category Wise Chart</h2>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={categoryData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="category" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="count" />
+    </BarChart>
+  </ResponsiveContainer>
+</section>
+<section className="chart-section">
+  <h2>Source Wise Chart</h2>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={sourceData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="source" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="count" />
+    </BarChart>
+  </ResponsiveContainer>
+</section>
 
         <section className="content-section" id="city">
           <h2>City Wise Listings</h2>

@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI(title="Business Listings Dashboard API")
 
